@@ -1,3 +1,34 @@
 <div class="alert alert-warning" role="alert" *ngFor="let colegio of colegios">
-    {{ colegio.nombre }} - {{ colegio.id }}
+    {{ colegio.nombre }} 
+    <div class="float-right" (click)="eliminar(colegio)">
+      <i class="far fa-trash-alt"></i>
+    </div>
+    <div class="float-right mx-3" (click)="editar(colegio)" data-toggle="modal" data-target="#exampleModal">
+      <i class="fas fa-pencil-alt"></i>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar: {{ editarColegio.nombre }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="agregarColegioEditado()">
+            <input type="text" placeholder="Ingresa el nombre del Colegio"
+                  [(ngModel)]="editarColegio.nombre" name="nombre" class="form-control" autocomplete="off">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-warning " type="submit">Editar</button>
+
+        </div>
+      </div>
+    </div>
   </div>

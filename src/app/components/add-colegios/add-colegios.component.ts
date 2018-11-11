@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConexionService } from 'src/app/services/conexion.service';
 
 @Component({
   selector: 'app-add-colegios',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddColegiosComponent implements OnInit {
 
-  constructor() { }
+  colegio: any = {
+    nombre: ''
+  }
+  constructor(private _conexion:ConexionService) { }
 
   ngOnInit() {
+  }
+
+  agregar() {
+    this._conexion.addColegio(this.colegio);
+    this.colegio.nombre = '';
   }
 
 }

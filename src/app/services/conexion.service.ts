@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 export interface Colegios { nombre: string; }
@@ -10,6 +10,8 @@ export interface Colegios { nombre: string; }
 export class ConexionService {
   private colegiosCollection: AngularFirestoreCollection<Colegios>;
   colegios: Observable<Colegios[]>;
+
+  private colegioDoc: AngularFirestoreDocument<Colegios>;
 
   constructor(private afs: AngularFirestore) {
     this.colegiosCollection = afs.collection<Colegios>('colegios');
@@ -25,4 +27,20 @@ export class ConexionService {
   listaColegios() {
     return this.colegios;
   }
+
+  addColegio(colegio: Colegios) {
+    this.colegiosCollection.add(colegio);
+  }
+
+  eliminarColegio(colegio){
+    this.colegioDoc = this.afs.doc<Colegios>(`colegios/${colegio.id}`);
+    this.colegioDoc.delete();
+  }
+
+  editarColegio(colegio){
+    this.colegioDoc = this.afs.doc<Colegios>(`colegios/${colegio.id}`);
+    this.colegioDoc.update(colegio);
+  }
+
+
 }
