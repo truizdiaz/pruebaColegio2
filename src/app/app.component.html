@@ -1,0 +1,8 @@
+<h1>hola</h1>
+<ul>
+  <li class="text" *ngFor="let item of items | async">
+    {{item.nombre}}
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
